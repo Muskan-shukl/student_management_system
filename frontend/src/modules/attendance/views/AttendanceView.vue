@@ -69,6 +69,14 @@ const teacherCols: Column[] = [
   { key: 'absent', label: 'Absent', width: '90px', align: 'right', hideBelow: 'sm' },
 ]
 const teacherRows = computed(() => (overview.data.value?.teachers ?? []).map((t) => ({ ...t, _id: t.teacher._id })))
+const expandedRows = ref<Set<string>>(new Set())
+const isExpanded = (id: string) => expandedRows.value.has(id)
+const toggleExpand = (id: string) => {
+  const next = new Set(expandedRows.value)
+  if (next.has(id)) next.delete(id)
+  else next.add(id)
+  expandedRows.value = next
+}
 
 /* ---- student: history ---- */
 const month = ref(monthInput())
@@ -150,15 +158,21 @@ const STATUS: { value: AttendanceStatus; label: string; icon: string }[] = [
               <div class="who"><AppAvatar :name="row.teacher.name" :size="32" /><span class="who__name">{{ row.teacher.name }}</span></div>
             </template>
             <template #cell-students="{ row }">
-              <div v-if="row.roster?.length" class="who__students">
+              <div v-if="row.roster?.length" class="who__students" :class="{ 'who__students--wrap': isExpanded(row._id) }">
                 <span
-                  v-for="st in row.roster"
+                  v-for="st in (isExpanded(row._id) ? row.roster : row.roster.slice(0, 2))"
                   :key="st._id"
                   class="student-chip"
                   :class="`student-chip--${st.status ?? 'none'}`"
                   :title="st.status ? `${st.status[0].toUpperCase()}${st.status.slice(1)} · ${st.rollNumber}` : `Not marked · ${st.rollNumber}`"
                   @click="router.push(`/students/${st._id}`)"
                 >{{ st.name }}</span>
+                <button
+                  v-if="row.roster.length > 2"
+                  type="button"
+                  class="student-chip student-chip--more"
+                  @click.stop="toggleExpand(row._id)"
+                >{{ isExpanded(row._id) ? 'Show less' : `+${row.roster.length - 2} more` }}</button>
               </div>
               <span v-else class="mono">0</span>
             </template>
@@ -248,10 +262,11 @@ const STATUS: { value: AttendanceStatus; label: string; icon: string }[] = [
 .ov__stats { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-4); }
 .who { display: flex; align-items: center; gap: var(--sp-3); }
 .who__name { font-weight: 600; }
-.who__students { display: flex; flex-wrap: nowrap; gap: 6px; overflow-x: auto; max-width: 260px; padding-bottom: 2px; scrollbar-width: thin; }
-.who__students::-webkit-scrollbar { height: 4px; }
+.who__students { display: flex; flex-wrap: nowrap; align-items: center; gap: 6px; max-width: 280px; }
+.who__students--wrap { flex-wrap: wrap; max-width: 340px; }
 .student-chip {
   display: inline-flex; align-items: center; flex-shrink: 0; white-space: nowrap;
+  max-width: 120px; overflow: hidden; text-overflow: ellipsis;
   padding: 3px 10px; border-radius: 999px;
   font-size: var(--text-xs); font-weight: 500;
   border: 1px solid var(--line-strong); cursor: pointer;
@@ -263,6 +278,8 @@ const STATUS: { value: AttendanceStatus; label: string; icon: string }[] = [
 .student-chip--late { background: var(--warning-bg, #fdf1de); color: var(--warning-text, #a15c07); border-color: transparent; }
 .student-chip--absent { background: var(--danger-bg, #fbe7e7); color: var(--danger-text, #b3261e); border-color: transparent; }
 .student-chip--none { color: var(--text-3); }
+.student-chip--more { background: var(--surface-3); color: var(--text-2); border-color: var(--line-strong); font-weight: 600; max-width: none; border: none; }
+.student-chip--more:hover { background: var(--line); }
 .low { display: flex; flex-direction: column; gap: var(--sp-2); }
 .low__row { display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-2) var(--sp-3); border-radius: var(--r-md); cursor: pointer; transition: background var(--dur-fast); }
 .low__row:hover { background: var(--surface-2); }
@@ -276,6 +293,6 @@ const STATUS: { value: AttendanceStatus; label: string; icon: string }[] = [
 .monthnav__btn:hover:not(:disabled) { background: var(--surface-2); }
 .monthnav__btn:disabled { opacity: 0.4; }
 .line { margin-top: var(--sp-5); display: flex; flex-direction: column; gap: 8px; }
-@media (max-width: 900px) { .grid, .ov { grid-template-columns: 1fr; } .stats { display: grid; grid-template-columns: repeat(3, 1fr); } .ov__stats { grid-template-columns: 1fr; } .low__bar { display: none; } }
-@media (max-width: 640px) { .row { flex-wrap: wrap; } .seg { width: 100%; } .seg__btn { flex: 1; justify-content: center; } .seg__btn span { display: none; } .stats { grid-template-columns: 1fr; } }
+@media (max-width: 900px) { .grid, .ov { grid-template-columns: 1fr; } .stats { display: grid; grid-template-columns: repeat(3, 1fr); } .ov__stats { grid-template-columns: 1fr; } .low__bar { display: none; } .who__students, .who__students--wrap { max-width: 180px; } }
+@media (max-width: 640px) { .row { flex-wrap: wrap; } .seg { width: 100%; } .seg__btn { flex: 1; justify-content: center; } .seg__btn span { display: none; } .stats { grid-template-columns: 1fr; } .student-chip { max-width: 80px; } }
 </style>
