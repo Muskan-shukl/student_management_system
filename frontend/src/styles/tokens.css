@@ -153,11 +153,11 @@
   --text-3: #7d8391;
   --text-inverse: var(--ink-900);
 
-  --primary: #2dd4bf;
-  --primary-hover: #5eead4;
-  --primary-soft: #113b37;
-  --primary-text: #7ee8d8;
-  --on-primary: #0a201c;
+  --primary: #8ca47e;
+  --primary-hover: #a3b897;
+  --primary-soft: #26332a;
+  --primary-text: #b7c9ad;
+  --on-primary: #14201a;
 
   --accent: #f0b759;
   --accent-soft: #3d2e14;
@@ -172,9 +172,9 @@
   --info-soft: #1c2c45;
   --info-text: #9cc0f5;
 
-  --success: #2dd4bf;
-  --success-soft: #113b37;
-  --success-text: #7ee8d8;
+  --success: #8ca47e;
+  --success-soft: #26332a;
+  --success-text: #b7c9ad;
 
   --sidebar-bg: #12211f;
   --sidebar-text: rgba(244, 242, 236, 0.72);

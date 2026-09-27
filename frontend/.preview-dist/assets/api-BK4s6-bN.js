@@ -1,0 +1,1 @@
+import{a as e}from"./index-Bt2Btgwr.js";var t={list:t=>e.get(`/users`,{query:t}),teachers:()=>e.get(`/users/teachers`),get:t=>e.get(`/users/${t}`),create:t=>e.post(`/users`,t),update:(t,n)=>e.patch(`/users/${t}`,n),remove:t=>e.delete(`/users/${t}`),resetPassword:(t,n)=>e.post(`/users/${t}/password`,{password:n})};export{t};

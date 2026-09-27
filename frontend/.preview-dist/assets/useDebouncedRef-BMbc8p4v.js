@@ -1,0 +1,1 @@
+import{$ as e,V as t}from"./AppIcon-BQrwqqJv.js";function n(n,r=350){let i=e(n.value),a;return t(n,e=>{window.clearTimeout(a),a=window.setTimeout(()=>i.value=e,r)}),i}export{n as t};

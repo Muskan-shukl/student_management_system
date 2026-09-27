@@ -1,0 +1,1 @@
+import{$ as e,tt as t}from"./AppIcon-BQrwqqJv.js";import{o as n}from"./index-Bt2Btgwr.js";function r(r){let i=t(null),a=e(!1),o=e(null),s=0;return{data:i,loading:a,error:o,run:async(...e)=>{let t=++s;a.value=!0,o.value=null;try{let n=await r(...e);return t===s&&(i.value=n),n}catch(e){return t===s&&(o.value=n(e)),null}finally{t===s&&(a.value=!1)}}}}export{r as t};
