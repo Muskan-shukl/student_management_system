@@ -98,8 +98,8 @@ const submit = form.handleSubmit(async (data) => {
 </template>
 
 <style scoped>
-.form { display: flex; flex-direction: column; gap: var(--sp-5); }
-.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-4); align-items: start; }
+.form { display: flex; flex-direction: column; gap: var(--sp-3); }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-3); align-items: start; }
 .stack { display: flex; flex-direction: column; gap: 8px; }
 .alt { text-align: center; font-size: var(--text-sm); color: var(--text-2); }
 .alert { display: flex; align-items: center; gap: var(--sp-2); padding: var(--sp-3) var(--sp-4); background: var(--danger-soft); color: var(--danger-text); border-radius: var(--r-md); font-size: var(--text-sm); font-weight: 500; }
