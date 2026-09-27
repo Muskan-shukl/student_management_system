@@ -17,8 +17,8 @@ defineProps<{ size?: number; light?: boolean; hideName?: boolean }>()
 .logo { display: inline-flex; align-items: center; gap: var(--sp-3); color: var(--text); }
 .logo__bg { fill: var(--primary); }
 .logo__v { stroke: var(--on-primary); }
-.logo--light { color: #fff; }
-.logo--light .logo__bg { fill: var(--accent); }
-.logo--light .logo__v { stroke: var(--ink-900); }
+.logo--light { color: var(--sidebar-text-strong, var(--text)); }
+.logo--light .logo__bg { fill: var(--primary); }
+.logo--light .logo__v { stroke: var(--on-primary); }
 .logo__name { font-family: var(--font-display); font-size: calc(var(--logo-size, 36px) * 0.6); font-weight: 600; letter-spacing: -0.01em; }
 </style>

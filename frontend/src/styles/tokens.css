@@ -17,15 +17,15 @@
   --text-3xl: 2.25rem;
   --text-4xl: 3rem;
 
-  /* Brand palette */
-  --pine-900: #0b3a2f;
-  --pine-800: #0f4a3c;
-  --pine-700: #155e4c;
-  --pine-600: #1d7660;
-  --pine-500: #2a9377;
-  --pine-200: #b9dfd0;
-  --pine-100: #ddefe6;
-  --pine-50: #eef7f3;
+  /* Brand palette — soft sage green (muted, light, professional) */
+  --pine-900: #3f5237;
+  --pine-800: #4d6244;
+  --pine-700: #5a7350;
+  --pine-600: #65825a;
+  --pine-500: #8ca47e;
+  --pine-200: #c9d6bb;
+  --pine-100: #dfe7d4;
+  --pine-50: #f4f6ef;
 
   --saffron-700: #b87613;
   --saffron-600: #d18d22;
@@ -66,8 +66,8 @@
   --text-3: var(--ink-400);
   --text-inverse: var(--paper-50);
 
-  --primary: var(--pine-700);
-  --primary-hover: var(--pine-800);
+  --primary: var(--pine-600);
+  --primary-hover: var(--pine-700);
   --primary-soft: var(--pine-100);
   --primary-text: var(--pine-800);
   --on-primary: #ffffff;
@@ -89,11 +89,12 @@
   --success-soft: var(--pine-100);
   --success-text: var(--pine-800);
 
-  --sidebar-bg: var(--pine-900);
-  --sidebar-text: rgba(244, 242, 236, 0.72);
+  --sidebar-bg: #eef1e7;
+  --sidebar-text: rgba(77, 98, 68, 0.75);
+  --sidebar-text-strong: #3f5237;
   --sidebar-text-active: #ffffff;
-  --sidebar-active: rgba(255, 255, 255, 0.1);
-  --sidebar-line: rgba(255, 255, 255, 0.08);
+  --sidebar-active: #65825a;
+  --sidebar-line: rgba(77, 98, 68, 0.16);
 
   --focus-ring: 0 0 0 3px color-mix(in srgb, var(--primary) 28%, transparent);
 
@@ -152,11 +153,11 @@
   --text-3: #7d8391;
   --text-inverse: var(--ink-900);
 
-  --primary: #4fb597;
-  --primary-hover: #66c6a9;
-  --primary-soft: #1a3a31;
-  --primary-text: #8fdcc4;
-  --on-primary: #0b1f19;
+  --primary: #2dd4bf;
+  --primary-hover: #5eead4;
+  --primary-soft: #113b37;
+  --primary-text: #7ee8d8;
+  --on-primary: #0a201c;
 
   --accent: #f0b759;
   --accent-soft: #3d2e14;
@@ -171,11 +172,15 @@
   --info-soft: #1c2c45;
   --info-text: #9cc0f5;
 
-  --success: #4fb597;
-  --success-soft: #1a3a31;
-  --success-text: #8fdcc4;
+  --success: #2dd4bf;
+  --success-soft: #113b37;
+  --success-text: #7ee8d8;
 
-  --sidebar-bg: #0d1116;
+  --sidebar-bg: #12211f;
+  --sidebar-text: rgba(244, 242, 236, 0.72);
+  --sidebar-text-strong: #ffffff;
+  --sidebar-text-active: #ffffff;
+  --sidebar-active: rgba(255, 255, 255, 0.1);
   --sidebar-line: rgba(255, 255, 255, 0.06);
 
   --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);

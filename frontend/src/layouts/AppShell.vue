@@ -128,14 +128,14 @@ const logout = async () => {
   transition: width var(--dur) var(--ease), transform var(--dur-slow) var(--ease-out); z-index: 60;
 }
 .sidebar__top { display: flex; align-items: center; justify-content: space-between; padding: 0 var(--sp-2); }
-.brand { color: #fff; text-decoration: none; }
+.brand { color: var(--sidebar-text-strong); text-decoration: none; }
 .collapse { width: 26px; height: 26px; display: grid; place-items: center; border-radius: 8px; color: var(--sidebar-text); transition: all var(--dur-fast); }
 .collapse:hover { background: var(--sidebar-active); color: #fff; }
 .shell--collapsed .sidebar__top { flex-direction: column; gap: var(--sp-2); }
 
 .nav { display: flex; flex-direction: column; gap: var(--sp-5); margin-top: var(--sp-6); overflow-y: auto; }
 .nav__group { display: flex; flex-direction: column; gap: 2px; }
-.nav__label { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(244, 242, 236, 0.4); padding: 0 var(--sp-3); margin-bottom: 6px; white-space: nowrap; overflow: hidden; }
+.nav__label { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sidebar-text); opacity: 0.75; padding: 0 var(--sp-3); margin-bottom: 6px; white-space: nowrap; overflow: hidden; }
 .shell--collapsed .nav__label { height: 1px; margin: 4px var(--sp-2); background: var(--sidebar-line); font-size: 0; }
 .nav__link {
   display: flex; align-items: center; gap: var(--sp-3); padding: 9px var(--sp-3); border-radius: var(--r-md);
@@ -152,7 +152,7 @@ const logout = async () => {
 .me__btn { width: 100%; display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-2); border-radius: var(--r-md); color: inherit; text-align: left; transition: background var(--dur-fast); }
 .me__btn:hover, .me__btn[aria-expanded='true'] { background: var(--sidebar-active); }
 .me__text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; align-items: flex-start; }
-.me__name { color: #fff; font-weight: 600; font-size: var(--text-sm); max-width: 100%; }
+.me__name { color: var(--sidebar-text-strong); font-weight: 600; font-size: var(--text-sm); max-width: 100%; }
 .me__chev { color: var(--sidebar-text); }
 .shell--collapsed .me__text, .shell--collapsed .me__chev { display: none; }
 .shell--collapsed .me__btn { justify-content: center; }
