@@ -19,7 +19,7 @@ export const STUDENT_STATUS_TONE: Record<StudentStatus, 'success' | 'neutral' | 
 export const YEAR_OPTIONS = [1, 2, 3, 4, 5, 6].map((y) => ({ value: y, label: `Year ${y}` }))
 
 export const DEMO_ACCOUNTS: { role: Role; email: string; password: string }[] = [
-  { role: 'admin', email: 'admin@sms.dev', password: 'Admin@123' },
-  { role: 'teacher', email: 'teacher@sms.dev', password: 'Teacher@123' },
-  { role: 'student', email: 'student@sms.dev', password: 'Student@123' },
+  { role: 'admin', email: 'aditirao@gmail.com', password: 'Admin@123' },
+  { role: 'teacher', email: 'karanmalhotra@gmail.com', password: 'Teacher@123' },
+  { role: 'student', email: 'nehasharma@gmail.com', password: 'Student@123' },
 ]
