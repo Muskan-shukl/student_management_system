@@ -15,7 +15,7 @@ const props = defineProps<{
   autocomplete?: string
   min?: string | number
   max?: string | number
-  maxlength?: number
+  maxlength?: number | string
   inputmode?: 'text' | 'numeric' | 'tel' | 'email' | 'search' | 'none' | 'decimal' | 'url'
   /** Strip anything but digits as the user types (for phone-style fields). */
   digitsOnly?: boolean

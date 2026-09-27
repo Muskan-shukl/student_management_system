@@ -10,7 +10,7 @@ export interface AdminDashboard {
   announcements: Announcement[]
   attendanceTrend: { date: string; total: number; percent: number }[]
   today: { students: number; marked: number; present: number; late: number; absent: number; unassigned: number }
-  teachers: { _id: string; name: string; department?: string; students: number; avgAttendance: number | null; markedToday: boolean }[]
+  teachers: { _id: string; name: string; department?: string; students: number; avgAttendance: number | null; markedToday: boolean; todayAttendance: number | null }[]
   assignments: number
 }
 

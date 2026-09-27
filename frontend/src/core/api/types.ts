@@ -125,8 +125,16 @@ export interface AttendanceHistory {
 
 export interface AttendanceOverview {
   date: string
-  totals: { students: number; marked: number; present: number; late: number; absent: number; unassigned: number }
-  teachers: { teacher: { _id: string; name: string }; students: number; marked: number; present: number; late: number; absent: number }[]
+  totals: { students: number; marked: number; present: number; late: number; absent: number; unassigned: number; evaluated: number }
+  teachers: {
+    teacher: { _id: string; name: string }
+    students: number
+    marked: number
+    present: number
+    late: number
+    absent: number
+    roster: { _id: string; name: string; rollNumber: string; status: AttendanceStatus | null }[]
+  }[]
   lowAttendance: { _id: string; name: string; rollNumber: string; course: string; teacher: string | null; percent: number; attendance: { present: number; total: number } }[]
 }
 
