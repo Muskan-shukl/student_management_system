@@ -61,9 +61,9 @@ const ovDate = ref(todayInput())
 const overview = useAsync(async (d: string) => (await attendanceApi.overview(d)).data)
 const ovPct = computed(() => { const t = overview.data.value?.totals; return t && t.marked ? Math.round(((t.present + t.late) / t.marked) * 100) : null })
 const teacherCols: Column[] = [
-  { key: 'teacher', label: 'Teacher', width: '180px' },
+  { key: 'teacher', label: 'Teacher', width: 'clamp(90px, 24vw, 180px)' },
   { key: 'students', label: 'Students' },
-  { key: 'marked', label: 'Marked', width: '140px' },
+  { key: 'marked', label: 'Marked', width: 'clamp(90px, 20vw, 140px)' },
   { key: 'present', label: 'Present', width: '90px', align: 'right', hideBelow: 'sm' },
   { key: 'late', label: 'Late', width: '80px', align: 'right', hideBelow: 'sm' },
   { key: 'absent', label: 'Absent', width: '90px', align: 'right', hideBelow: 'sm' },
@@ -166,7 +166,7 @@ const STATUS: { value: AttendanceStatus; label: string; icon: string }[] = [
                   :class="`student-chip--${st.status ?? 'none'}`"
                   :title="st.status ? `${st.status[0].toUpperCase()}${st.status.slice(1)} · ${st.rollNumber}` : `Not marked · ${st.rollNumber}`"
                   @click="router.push(`/students/${st._id}`)"
-                >{{ st.name }}</span>
+                ><span class="student-chip__label">{{ st.name }}</span></span>
                 <button
                   v-if="row.roster.length > 2"
                   type="button"
@@ -260,19 +260,20 @@ const STATUS: { value: AttendanceStatus; label: string; icon: string }[] = [
 .grid { display: grid; grid-template-columns: 300px 1fr; gap: var(--sp-5); align-items: start; }
 .ov { display: grid; grid-template-columns: 1.4fr 1fr; gap: var(--sp-5); align-items: start; }
 .ov__stats { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-4); }
-.who { display: flex; align-items: center; gap: var(--sp-3); }
-.who__name { font-weight: 600; }
+.who { display: flex; align-items: center; gap: var(--sp-3); min-width: 0; }
+.who__name { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
 .who__students { display: flex; flex-wrap: nowrap; align-items: center; gap: 6px; max-width: 280px; }
 .who__students--wrap { flex-wrap: wrap; max-width: 340px; }
 .student-chip {
-  display: inline-flex; align-items: center; flex-shrink: 0; white-space: nowrap;
-  max-width: 120px; overflow: hidden; text-overflow: ellipsis;
+  display: inline-flex; align-items: center; flex-shrink: 0; min-width: 0; white-space: nowrap;
+  max-width: 120px;
   padding: 3px 10px; border-radius: 999px;
   font-size: var(--text-xs); font-weight: 500;
   border: 1px solid var(--line-strong); cursor: pointer;
   background: var(--surface-2); color: var(--text-2);
   transition: background var(--dur-fast);
 }
+.student-chip__label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
 .student-chip:hover { background: var(--surface-3, var(--surface-2)); }
 .student-chip--present { background: var(--success-bg, #e6f6ec); color: var(--success-text, #1a7f4b); border-color: transparent; }
 .student-chip--late { background: var(--warning-bg, #fdf1de); color: var(--warning-text, #a15c07); border-color: transparent; }
@@ -293,6 +294,22 @@ const STATUS: { value: AttendanceStatus; label: string; icon: string }[] = [
 .monthnav__btn:hover:not(:disabled) { background: var(--surface-2); }
 .monthnav__btn:disabled { opacity: 0.4; }
 .line { margin-top: var(--sp-5); display: flex; flex-direction: column; gap: 8px; }
-@media (max-width: 900px) { .grid, .ov { grid-template-columns: 1fr; } .stats { display: grid; grid-template-columns: repeat(3, 1fr); } .ov__stats { grid-template-columns: 1fr; } .low__bar { display: none; } .who__students, .who__students--wrap { max-width: 180px; } }
-@media (max-width: 640px) { .row { flex-wrap: wrap; } .seg { width: 100%; } .seg__btn { flex: 1; justify-content: center; } .seg__btn span { display: none; } .stats { grid-template-columns: 1fr; } .student-chip { max-width: 80px; } }
+@media (max-width: 900px) {
+  .grid, .ov { grid-template-columns: 1fr; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .ov__stats { grid-template-columns: 1fr; }
+  .low__bar { display: none; }
+  .who__students, .who__students--wrap { max-width: 160px; }
+  .who__name { max-width: 90px; }
+}
+@media (max-width: 640px) {
+  .row { flex-wrap: wrap; }
+  .seg { width: 100%; }
+  .seg__btn { flex: 1; justify-content: center; }
+  .seg__btn span { display: none; }
+  .stats { grid-template-columns: 1fr; }
+  .student-chip:not(.student-chip--more) { max-width: 70px; }
+  .who__students, .who__students--wrap { max-width: 130px; }
+  .who__name { max-width: 60px; }
+}
 </style>
