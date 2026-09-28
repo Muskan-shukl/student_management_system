@@ -3,16 +3,20 @@ const { Student } = require('../students/student.model');
 const ApiError = require('../../utils/ApiError');
 const { getPagination, buildMeta } = require('../../utils/pagination');
 const { ROLES } = require('../../config/constants');
+const { escapeRegex } = require('../../utils/regex');
 
 const TEACHER_POPULATE = { path: 'teacher', select: 'name' };
 const SUB_POPULATE = { path: 'submissions.student', select: 'rollNumber user', populate: { path: 'user', select: 'name' } };
 
 const startOfToday = () => new Date(new Date().toISOString().slice(0, 10) + 'T00:00:00.000Z');
 
+/** Case-insensitive exact match for a free-text course string, so "b.tech cse" == "B.Tech CSE". */
+const courseExact = (course) => new RegExp(`^${escapeRegex(String(course).trim())}$`, 'i');
+
 /** Assignments that apply to a given student profile. */
 const filterForStudent = (student) => ({
   teacher: student.assignedTeacher,
-  $or: [{ course: { $in: [null, ''] } }, { course: student.course }],
+  $or: [{ course: { $in: [null, ''] } }, { course: courseExact(student.course) }],
 });
 
 const decorateForStudent = (doc, studentId) => {
@@ -46,7 +50,7 @@ const list = async (query, actor) => {
     Assignment.countDocuments(filter),
   ]);
   const counts = await Promise.all(
-    docs.map((d) => Student.countDocuments({ assignedTeacher: d.teacher._id, ...(d.course ? { course: d.course } : {}) }))
+    docs.map((d) => Student.countDocuments({ assignedTeacher: d.teacher._id, ...(d.course ? { course: courseExact(d.course) } : {}) }))
   );
   return { items: docs.map((d, i) => decorateForTeacher(d, counts[i])), meta: buildMeta({ page, limit, total }) };
 };
@@ -55,7 +59,7 @@ const getForTeacher = async (id, actor) => {
   const doc = await Assignment.findById(id).populate(TEACHER_POPULATE).populate(SUB_POPULATE);
   if (!doc) throw ApiError.notFound('Assignment not found');
   if (actor.role === ROLES.TEACHER && !doc.teacher._id.equals(actor._id)) throw ApiError.forbidden('Not your assignment');
-  const students = await Student.find({ assignedTeacher: doc.teacher._id, ...(doc.course ? { course: doc.course } : {}) })
+  const students = await Student.find({ assignedTeacher: doc.teacher._id, ...(doc.course ? { course: courseExact(doc.course) } : {}) })
     .select('rollNumber user').populate({ path: 'user', select: 'name' }).sort({ rollNumber: 1 });
   const subs = new Map(doc.submissions.map((s) => [String(s.student?._id ?? s.student), s]));
   const roster = students.map((s) => {
